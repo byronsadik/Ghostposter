@@ -7,13 +7,6 @@ var express = require('express'),
 
 router.post('/', function(req, res){
 
-
-    console.log(req.body);
-
-    console.log('\n'+req.body.token + ' \n ' + req.body.secret+'\n');
-
-
-
     reddit.setupOAuth2(req.body.id, req.body.secret);
 
 
@@ -40,15 +33,10 @@ router.post('/', function(req, res){
     }
 
 
-    console.log(credentials);
-    console.log(submission);
-
-
     reddit.auth(credentials, function(err, response) {
       if (err) {
         exit("Unable to authenticate user: " + err);
       } else {
-
         // The user is now authenticated. If you want the temporary bearer token, it's available as response.access_token
         // and will be valid for response.expires_in seconds.
         // raw.js will automatically refresh the bearer token as it expires. Unlike web apps, no refresh tokens are available.
@@ -60,14 +48,14 @@ router.post('/', function(req, res){
             if (required) {
               exit("can not submit because captcha is needed");
             } else {
-              // reddit.submit(submission, function(err, id) {
-              //   if (err) {
-              //     exit("Unable to submit post: " + err);
-              //   } else {
-              //     console.log("submitted " + id);
-              //     res.redirect('posts');
-              //   }
-              // });
+              reddit.submit(submission, function(err, id) {
+                if (err) {
+                  exit("Unable to submit post: " + err);
+                } else {
+                  console.log("submitted " + id);
+                  res.redirect('posts');
+                }
+              });
             }
           }
         });
@@ -80,10 +68,6 @@ router.post('/', function(req, res){
       console.error(err);
         res.redirect('posts');
     }
-
-
-
-
 
 }); // end submit
 
