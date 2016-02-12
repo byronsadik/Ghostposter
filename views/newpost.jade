@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    h1= title
+    form#formNewPost(name="newpost",method="post",action="/submit")
+        input#inputUserName(type="text", placeholder="username", name="username")
+        
+        input#inputUserPassword(type="password", placeholder="userpass", name="userpass")
+
+        input#appToken(type="text", placeholder="token", name="token")
+
+        input#appSecret(type="text", placeholder="secret", name="secret")
+
+        input#postTitle(type="text", placeholder="title", name="title")
+
+        input#postTextLink(type="text", placeholder="text/link", name="text")
+
+        input#postSub(type="text", placeholder="subreddit name", name="subreddit")
+
+        button#btnSubmit(type="submit") submit
