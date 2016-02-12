@@ -8,7 +8,10 @@ var express = require('express'),
 router.post('/', function(req, res){
 
 
+    console.log(req.body);
+
     console.log('\n'+req.body.token + ' \n ' + req.body.secret+'\n');
+
 
 
     reddit.setupOAuth2(req.body.id, req.body.secret);
