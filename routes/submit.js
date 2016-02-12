@@ -40,6 +40,7 @@ router.post('/', function(req, res){
         // The user is now authenticated. If you want the temporary bearer token, it's available as response.access_token
         // and will be valid for response.expires_in seconds.
         // raw.js will automatically refresh the bearer token as it expires. Unlike web apps, no refresh tokens are available.
+        
 
         reddit.captchaNeeded(function(err, required) {
           if (err) {
