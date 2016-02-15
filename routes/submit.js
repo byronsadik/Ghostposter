@@ -2,7 +2,8 @@ var express = require('express'),
     router = express.Router(),
     rawjs = require('raw.js'),
     reddit = new rawjs("raw.js redditPoster"),
-    util = require('util')
+    util = require('util'),
+    CronJob = require('cron').CronJob;
 ;
 
 router.post('/', function(req, res){
