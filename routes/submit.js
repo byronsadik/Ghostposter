@@ -68,6 +68,6 @@ router.post('/', function(req, res){
         res.redirect('/');
     }
 
-}); // end submit
+}); // end post
 
 module.exports = router;
