@@ -47,6 +47,9 @@ router.post('/', function(req, res){
     //         if (required) {
     //           exit("can not submit because captcha is needed");
     //         } else {
+
+    //           // validate and THEN run cronjob
+
     //           reddit.submit(submission, function(err, id) {
     //             if (err) {
     //               exit("Unable to submit post: " + err);
@@ -74,19 +77,22 @@ router.post('/', function(req, res){
 //     });
 //     job.start();
 
+  
+    var cronTimeStamp = '00 * 17 * * *';
+    
+    var job = new CronJob(cronTimeStamp, function() {
 
-var something = true;
-    var job = new CronJob('00 33 00 * * *', function() {
+        // actual cron task
 
-  something = false;
-        console.log('squeeeeeeeeeeee ' + something + '\n\n');
-  }, function () {
-   console.log(this);
-  },
-  true
-);
+        this.stop();
 
-    console.log('mooooooo ' + something + '\n\n');
+      }, function () {
+        // gets called after cron job is stopped
+        
+      }
+    );
+
+    job.start();
 
 
     // in case of error, log to STDERR and exit
