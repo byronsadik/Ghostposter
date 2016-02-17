@@ -31,35 +31,63 @@ router.post('/', function(req, res){
         submission['text'] = req.body.text;
     }
 
-    reddit.auth(credentials, function(err, response) {
-      if (err) {
-        exit("Unable to authenticate user: " + err);
-      } else {
-        // The user is now authenticated. If you want the temporary bearer token, it's available as response.access_token
-        // and will be valid for response.expires_in seconds.
-        // raw.js will automatically refresh the bearer token as it expires. Unlike web apps, no refresh tokens are available.
+    // reddit.auth(credentials, function(err, response) {
+    //   if (err) {
+    //     exit("Unable to authenticate user: " + err);
+    //   } else {
+    //     // The user is now authenticated. If you want the temporary bearer token, it's available as response.access_token
+    //     // and will be valid for response.expires_in seconds.
+    //     // raw.js will automatically refresh the bearer token as it expires. Unlike web apps, no refresh tokens are available.
         
 
-        reddit.captchaNeeded(function(err, required) {
-          if (err) {
-            exit("captchaNeeded failed: " + err);
-          } else {
-            if (required) {
-              exit("can not submit because captcha is needed");
-            } else {
-              reddit.submit(submission, function(err, id) {
-                if (err) {
-                  exit("Unable to submit post: " + err);
-                } else {
-                  console.log("submitted " + id);
-                  res.redirect('/');
-                }
-              });
-            }
-          }
-        });
-      }
-    }); // end reddit.auth
+    //     reddit.captchaNeeded(function(err, required) {
+    //       if (err) {
+    //         exit("captchaNeeded failed: " + err);
+    //       } else {
+    //         if (required) {
+    //           exit("can not submit because captcha is needed");
+    //         } else {
+    //           reddit.submit(submission, function(err, id) {
+    //             if (err) {
+    //               exit("Unable to submit post: " + err);
+    //             } else {
+    //               console.log("submitted " + id);
+    //               res.redirect('/');
+    //             }
+    //           });
+    //         }
+    //       }
+    //     });
+    //   }
+    // }); // end reddit.auth
+
+// var something = true;
+//     var job = new CronJob({
+//       cronTime: '00 24 00 * * *',
+//       onTick: function() {
+
+//         something = false;
+//         console.log('squeeeeeeeeeeee' + something + '\n\n');
+
+//       },
+//       start: false
+//     });
+//     job.start();
+
+
+var something = true;
+    var job = new CronJob('00 33 00 * * *', function() {
+
+  something = false;
+        console.log('squeeeeeeeeeeee ' + something + '\n\n');
+  }, function () {
+   console.log(this);
+  },
+  true
+);
+
+    console.log('mooooooo ' + something + '\n\n');
+
 
     // in case of error, log to STDERR and exit
     //
@@ -68,6 +96,6 @@ router.post('/', function(req, res){
         res.redirect('/');
     }
 
-}); // end post
+}); // end router.post('/'..
 
 module.exports = router;
