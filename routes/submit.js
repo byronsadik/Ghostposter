@@ -31,6 +31,16 @@ router.post('/', function(req, res){
         submission['text'] = req.body.text;
     }
 
+    // gonna have to break up req.body.date and req.body.time and reinsert them into crontime variable
+
+    var dateOfMonth = req.body.date.substring(date.length, 8);
+    var monthNumber = req.body.date.substring(7, 5) - 1;
+
+    var cronTimeStamp = '00 * 17 * * *';
+
+
+    console.log(req.body);
+
     // reddit.auth(credentials, function(err, response) {
     //   if (err) {
     //     exit("Unable to authenticate user: " + err);
@@ -64,22 +74,9 @@ router.post('/', function(req, res){
     //   }
     // }); // end reddit.auth
 
-// var something = true;
-//     var job = new CronJob({
-//       cronTime: '00 24 00 * * *',
-//       onTick: function() {
-
-//         something = false;
-//         console.log('squeeeeeeeeeeee' + something + '\n\n');
-
-//       },
-//       start: false
-//     });
-//     job.start();
-
   
-    var cronTimeStamp = '00 * 17 * * *';
-    
+  
+
     var job = new CronJob(cronTimeStamp, function() {
 
         // actual cron task
