@@ -10,10 +10,20 @@ router.post('/', function(req, res){
 
     reddit.setupOAuth2(req.body.id, req.body.secret);
 
+    var time = req.body.time;
+    var date = req.body.date;
+
+    var hour = ' ' + time.substring(0, 2);
+    var minutes = ' ' + time.substring(5, 3);
+
+    var day = ' ' + date.substring(date.length, 8);
+    var month = ' ' + (date.substring(7, 5) - 1);
+
+    var timestamp = '00' + minutes + hour + day + month + ' *';
 
     var credentials = {
       "username": req.body.username,
-      "password": req.body.userpass,
+      "password": req.body.userpass
     };
 
     // the actual post to be submitted
@@ -31,15 +41,23 @@ router.post('/', function(req, res){
         submission['text'] = req.body.text;
     }
 
-    // gonna have to break up req.body.date and req.body.time and reinsert them into crontime variable
 
-    var dateOfMonth = req.body.date.substring(date.length, 8);
-    var monthNumber = req.body.date.substring(7, 5) - 1;
+    var job = new CronJob(timestamp, function() {
 
-    var cronTimeStamp = '00 * 17 * * *';
+        // actual cron task
+        console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
 
+        this.stop();
 
-    console.log(req.body);
+      }, function () {
+        // gets called after cron job is stopped
+        res.redirect('/');
+        
+      }
+    );
+
+    job.start();
+
 
     // reddit.auth(credentials, function(err, response) {
     //   if (err) {
@@ -74,22 +92,7 @@ router.post('/', function(req, res){
     //   }
     // }); // end reddit.auth
 
-  
-  
-
-    var job = new CronJob(cronTimeStamp, function() {
-
-        // actual cron task
-
-        this.stop();
-
-      }, function () {
-        // gets called after cron job is stopped
-        
-      }
-    );
-
-    job.start();
+ 
 
 
     // in case of error, log to STDERR and exit
