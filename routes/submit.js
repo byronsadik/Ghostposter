@@ -11,9 +11,19 @@ router.post('/', function(req, res){
     reddit.setupOAuth2(req.body.id, req.body.secret);
 
 
+    // prepping the date and time to put into the cronjob
+    var time = req.body.time;
+    var date = req.body.date;
+    var hour = ' ' + time.substring(0, 2);
+    var minutes = ' ' + time.substring(5, 3);
+    var day = ' ' + date.substring(date.length, 8);
+    var month = ' ' + (date.substring(7, 5) - 1);
+
+    var timestamp = '00' + minutes + hour + day + month + ' *';
+
     var credentials = {
       "username": req.body.username,
-      "password": req.body.userpass,
+      "password": req.body.userpass
     };
 
     // the actual post to be submitted
@@ -47,14 +57,21 @@ router.post('/', function(req, res){
             if (required) {
               exit("can not submit because captcha is needed");
             } else {
-              reddit.submit(submission, function(err, id) {
-                if (err) {
-                  exit("Unable to submit post: " + err);
-                } else {
-                  console.log("submitted " + id);
-                  res.redirect('/');
-                }
+              var job = new CronJob(timestamp, function() {
+                reddit.submit(submission, function(err, id) {
+                  if (err) {
+                    exit("Unable to submit post: " + err);
+                  } else {
+                    console.log("submitted " + id);
+                  }
+                });
+
+                this.stop();
               });
+
+              job.start();
+
+              res.redirect('/');
             }
           }
         });
@@ -62,12 +79,12 @@ router.post('/', function(req, res){
     }); // end reddit.auth
 
     // in case of error, log to STDERR and exit
-    //
+    
     function exit(err) {
       console.error(err);
         res.redirect('/');
     }
 
-}); // end post
+}); // end router.post('/'..
 
 module.exports = router;
