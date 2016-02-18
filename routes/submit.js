@@ -8,12 +8,14 @@ var express = require('express'),
 
 router.post('/', function(req, res){
 
-    reddit.setupOAuth2(req.body.id, req.body.secret);
+    var body = req.body;
+
+    reddit.setupOAuth2(body.id, body.secret);
 
 
     // prepping the date and time to put into the cronjob
-    var time = req.body.time;
-    var date = req.body.date;
+    var time = body.time;
+    var date = body.date;
     var hour = ' ' + time.substring(0, 2);
     var minutes = ' ' + time.substring(5, 3);
     var day = ' ' + date.substring(date.length, 8);
@@ -22,23 +24,24 @@ router.post('/', function(req, res){
     var timestamp = '00' + minutes + hour + day + month + ' *';
 
     var credentials = {
-      "username": req.body.username,
-      "password": req.body.userpass
+      "username": body.username,
+      "password": body.userpass
     };
 
     // the actual post to be submitted
     //
     var submission = {
-      "title": req.body.title,
-      "r": req.body.subreddit,
+      "title": body.title,
+      "r": body.subreddit,
       "inboxReplies": false,
       "save": false,
     };
 
-    if (req.body.isLink === 'on'){
-        submission["link"] = req.body.link;   
+    // checks if they're posting a url or not, if not, submission key will be text
+    if (body.isLink === 'on'){
+        submission["link"] = body.text;   
     } else {
-        submission['text'] = req.body.text;
+        submission['text'] = body.text;
     }
 
     reddit.auth(credentials, function(err, response) {
@@ -85,6 +88,6 @@ router.post('/', function(req, res){
         res.redirect('/');
     }
 
-}); // end router.post('/'..
+}); // end router.post('/'
 
 module.exports = router;
