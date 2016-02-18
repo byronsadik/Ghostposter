@@ -35,9 +35,9 @@ router.post('/', function(req, res){
       "save": false,
     };
 
-    if (req.body.link){
+    if (req.body.isLink === 'on'){
         submission["link"] = req.body.link;   
-    } else if(req.body.text){
+    } else {
         submission['text'] = req.body.text;
     }
 
