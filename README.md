@@ -10,8 +10,16 @@ This is a Node-based app I'm writing as my first foray into Node.js and the Expr
 
 1. Go to <http://reddit.com/prefs/apps>. Click "are you a developer? create an app..."
 
-1. Clone repo locally, and in directory run `npm install`.
+
 2. This will bring up a form. For now we only need to give it a name (call it whatever you want), select `script`, and add a redirect uri (can be any valid url, I just use `http://google.com`). 
+
+![alt text](https://github.com/byronsadik/RedditGhost/blob/readme/reddit-client-secret.png "")
+
+Save the ID and secret for later.
+
+1. Clone repo locally, and in directory run `npm install`.
+1. Go to `http://localhost:3000`. 
+
 
 1. Feel free to email <david@mic.com> and <anthony@mic.com> with any questions you may have.
 1. Your implementation must use Node.js.
