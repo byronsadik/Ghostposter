@@ -15,7 +15,7 @@ This is a Node-based app I'm writing as my first foray into Node.js and the Expr
 
 Save the ID and secret for later.
 
-1. Clone repo locally, and in directory run `npm install`.
+1. Clone repo locally, and in directory run `npm install`, and then run `npm start`.
 1. Go to `http://localhost:3000`. 
 1. Input your username, password, ID, secret, and all of your Reddit post information. Make sure you select whether you're posting a reddit link or a text post and be sure to input the correct subreddit name.
 
