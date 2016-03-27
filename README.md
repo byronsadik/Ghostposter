@@ -1,8 +1,8 @@
 # RedditGhost
 
 This is a Node-based app I'm writing as my first foray into Node.js and the Express framework. Basically, it's used to post to Reddit at a future date and time. It works by using two main modules, Raw.js and Node-Cron:
-... +[Raw.js](https://www.npmjs.com/package/raw.js) is a Node-based wrapper for Reddit's API.
-... +[Node-Cron](https://github.com/ncb000gt/node-cron) is a Cron module for Node.js. Basically, it allows you to schedule code execution using a cron-based syntax.
++ [Raw.js](https://www.npmjs.com/package/raw.js) is a Node-based wrapper for Reddit's API.
++ [Node-Cron](https://github.com/ncb000gt/node-cron) is a Cron module for Node.js. Basically, it allows you to schedule code execution using a cron-based syntax.
 
 ### (This app is still in beta mode. If you wish to run it yourself, for security reasons it's best to use a throwaway Reddit account or a unique account for development purposes only.)
 
