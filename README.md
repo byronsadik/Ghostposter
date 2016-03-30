@@ -13,10 +13,10 @@ This is a Node-based app I'm writing as my first foray into Node.js and the Expr
 
 ![alt text](https://github.com/byronsadik/Ghostposter/blob/readme/reddit-client-secret.png "")
 
-Save the ID and secret for later.
+Save the ID and secret for later. If you lose them, don't worry. Go back to <http://reddit.com/prefs/apps> and you can find them again.
 
 1. Clone repo locally, and in directory run `npm install`, and then run `npm start`.
 1. Go to `http://localhost:3000`. 
 1. Input your username, password, ID, secret, and all of your Reddit post information. Make sure you select whether you're posting a reddit link or a text post and be sure to input the correct subreddit name.
 
-Then voila! As long as the app is running it will post to Reddit for you at the scheduled time.
+Ta-da! As long as the app is running it will post to Reddit for you at the scheduled time.
